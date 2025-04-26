@@ -1,0 +1,16 @@
+upstream backend {
+    {% for host in groups['backend'] %}
+    server {{ hostvars[host]['ansible_host'] }}:80;
+    {% endfor %}
+}
+
+server {
+    listen 3000;
+    server_name localhost;
+
+    location / {
+        proxy_pass http://backend;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
