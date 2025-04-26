@@ -1,0 +1,9 @@
+  GNU nano 7.2                                                                               main.yml
+---
+- name: restart nginx
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
+
+
+
